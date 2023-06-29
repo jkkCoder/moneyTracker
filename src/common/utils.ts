@@ -13,3 +13,5 @@ export const scale = (size:number) => {
 export const verticalScale = (size:number) => {
     return size * (height / MAX_HEIGHT)
 }
+
+export const currency = '₹'
