@@ -44,7 +44,7 @@ const App = () => {
       >
         <Tab.Screen 
           options={{title: "Trans"}} 
-          name="transaction" 
+          name="transactionStack" 
           component={TransactionStack} 
         />
         <Tab.Screen 
@@ -53,7 +53,7 @@ const App = () => {
               title: "Stats",
             }
           } 
-          name="statistic" 
+          name="statisticStack" 
           component={StatisticStack} 
         />
       </Tab.Navigator>
