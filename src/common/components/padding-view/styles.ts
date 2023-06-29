@@ -4,7 +4,7 @@ import { scale } from "../../utils";
 export default StyleSheet.create({
     container: {
         paddingHorizontal: scale(10),
-        backgroundColor: 'lightgrey',
+        backgroundColor: '#f7f7f7',
         flex:1,
     }
 })
