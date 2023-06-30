@@ -13,5 +13,8 @@ export default StyleSheet.create({
         bottom: scale(20),
         right: scale(20),
         borderRadius: scale(5)
-    }
+    },
+    dropDownContainer:{
+        flexDirection: 'row',
+    },
 })

@@ -6,6 +6,7 @@ import TransHeader from '../trans-header';
 import { useTransDetailsMonthly } from './hooks';
 import { getData } from '../../../../common/utils';
 import { useFocusEffect } from '@react-navigation/native';
+import styles from './styles';
 
 interface Props {
   month: number;
@@ -40,25 +41,38 @@ const TransDetailsDaily = ({month, year}: Props) => {
 
 
   const {sections} = useTransDetailsMonthly(transactionData,month,year)
+  console.log('sections is ', sections)
 
   return (
     <View>
-      <SectionList
-        sections={sections}
-        renderItem={({item}) => (
-          <Trans 
-            id={item?.id} 
-            category={item?.category} 
-            title={item?.title} 
-            description={item?.description} 
-            amount={item?.amount} 
-            type={item?.type}/>
-        )}
-        renderSectionHeader={({section}) => (
-          <TransHeader date={section?.data?.[0]?.date} />
-        )}
-        keyExtractor={(item) => item?.id?.toString()}
-      />
+      {
+        sections?.length > 0 ? (
+          <SectionList
+            sections={sections}
+            renderItem={({item}) => (
+              <Trans 
+                id={item?.id} 
+                category={item?.category} 
+                title={item?.title} 
+                description={item?.description} 
+                amount={item?.amount} 
+                type={item?.type}/>
+            )}
+            renderSectionHeader={({section}) => (
+              <TransHeader date={section?.data?.[0]?.date} />
+            )}
+            keyExtractor={(item) => item?.id?.toString()}
+          /> 
+        ) : (
+          <View style={styles.noData}>
+            <Text>
+              No Data
+            </Text>
+          </View>
+          
+        )
+      }
+      
     </View>
   )
 }
