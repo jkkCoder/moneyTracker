@@ -41,7 +41,6 @@ const TransDetailsDaily = ({month, year}: Props) => {
 
 
   const {sections} = useTransDetailsMonthly(transactionData,month,year)
-  console.log('sections is ', sections)
 
   return (
     <View>
