@@ -20,7 +20,7 @@ const Trans = ({id, category, title, description, amount, type}: Props) => {
         <Text style={styles.title} numberOfLines={1}>{title}</Text>
         <Text numberOfLines={1}>{description}</Text>
       </View>
-      <Text adjustsFontSizeToFit numberOfLines={1} style={[styles.amount, type?.toLowerCase() === 'expense' ? styles.greenTxt : styles.redTxt]}>{currency} {amount}</Text>
+      <Text adjustsFontSizeToFit numberOfLines={1} style={[styles.amount, type?.toLowerCase() === 'expense' ? styles.redTxt : styles.greenTxt]}>{currency} {amount}</Text>
     </View>
   )
 }

@@ -1,4 +1,6 @@
-const mockTransaction =  [
+import { TransactionInterface } from "./common/interface";
+
+const mockTransaction: TransactionInterface[] =  [
     {
         id : 1,
         date: "2023-06-29",
@@ -33,6 +35,18 @@ const mockTransaction =  [
         amount: 90,
         year:2023,
         month:6,
+        day:28,
+    },
+    {
+        id:3,
+        date:"2023-07-28",
+        category: "household",
+        title: "powder",
+        type: "expense",
+        description: "nycil cool powder",
+        amount: 90,
+        year:2023,
+        month:7,
         day:28,
     },
     {
