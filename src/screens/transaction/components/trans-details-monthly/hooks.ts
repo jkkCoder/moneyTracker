@@ -3,10 +3,13 @@ import { TransactionInterface } from "../../../../common/interface";
 
 interface TransactionByDayInterface {
     [key: string] : TransactionInterface[]
-  }
+}
 
-export const useTransDetailsMonthly = (transactionData: TransactionInterface[],month:number, year:number) => {
-
+export const useTransDetailsMonthly = (
+    transactionData: TransactionInterface[],
+    month:number, 
+    year:number, 
+) => {
     const filteredExpense = transactionData.filter( exp => {
     return exp?.month === month && exp?.year === year;
     })
@@ -22,15 +25,15 @@ export const useTransDetailsMonthly = (transactionData: TransactionInterface[],m
 
     //sorted transaction by day
     const sortedTransactionsByDay = useMemo(() => {
-    const sortedTransactions = {} as TransactionByDayInterface;
+        const sortedTransactions = {} as TransactionByDayInterface;
 
-    Object.keys(transactionsByDay)
-        .sort((a, b) => parseInt(a) - parseInt(b))
-        .forEach(day => {
-        sortedTransactions[day] = transactionsByDay[day];
-        });
+        Object.keys(transactionsByDay)
+            .sort((a, b) => parseInt(a) - parseInt(b))
+            .forEach(day => {
+            sortedTransactions[day] = transactionsByDay[day];
+            });
 
-    return sortedTransactions;
+        return sortedTransactions;
     }, [transactionsByDay]);
 
     //data for section list

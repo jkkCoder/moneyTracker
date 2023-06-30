@@ -1,4 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Dimensions } from 'react-native';
+import { TransactionInterface } from './interface';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -15,3 +17,32 @@ export const verticalScale = (size:number) => {
 }
 
 export const currency = '₹'
+
+export const getData = async () => {
+    try {
+        const value = await AsyncStorage.getItem('data');
+        return {
+        data: value ? JSON.parse(value) : [],
+        success: true
+        }
+    } catch (e) {
+        return {
+            data: [],
+            success: false,
+            errorMsg : e
+        }
+    }
+}; 
+
+export const setData = async (data : TransactionInterface) => {
+    try {
+        await AsyncStorage.setItem('data', JSON.stringify(data));
+        return {
+            success: true,
+        }
+    } catch (e) {
+        return {
+            success: false,
+        }
+    }
+}

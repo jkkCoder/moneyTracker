@@ -1,14 +1,15 @@
 import { StyleSheet } from "react-native";
 import { scale } from "../../../../common/utils";
+import colors from "../../../../common/colors";
 
 export default StyleSheet.create({
     container:{
-        backgroundColor:'white',
+        backgroundColor:colors.white,
         paddingHorizontal: scale(5),
         flexDirection: 'row',
         marginVertical: scale(2),
         borderWidth:scale(1),
-        borderColor: 'black',
+        borderColor: colors.black,
         borderRadius: scale(5),
     },
     category: {
@@ -19,7 +20,7 @@ export default StyleSheet.create({
         width:'51%',
     },
     title:{
-        color: 'black',
+        color: colors.black,
         fontWeight: 'bold'
     },
     amount: {
@@ -28,9 +29,9 @@ export default StyleSheet.create({
         textAlign: 'right'
     },
     greenTxt: {
-        color: 'lightgreen'
+        color: colors.lightgreen
     },
     redTxt: {
-        color: 'red',
+        color: colors.red
     }
 })

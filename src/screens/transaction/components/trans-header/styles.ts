@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native"
 import { scale } from "../../../../common/utils"
+import colors from "../../../../common/colors"
 
 export default StyleSheet.create({
     container:{
@@ -8,7 +9,7 @@ export default StyleSheet.create({
         marginVertical: scale(5),
     },
     dayContainer: {
-        backgroundColor: '#989595',
+        backgroundColor: colors.lightgrey,
         marginLeft: scale(10),
         borderRadius: scale(2),
         paddingHorizontal: scale(8),

@@ -1,23 +1,45 @@
 import { View, Text, SectionList } from 'react-native'
-import React, {useEffect, useMemo} from 'react'
-import mockTransaction from '../../../../mock';
+import React, {useCallback, useEffect, useMemo, useState} from 'react'
 import { TransactionInterface } from '../../../../common/interface';
 import Trans from '../trans';
 import TransHeader from '../trans-header';
 import { useTransDetailsMonthly } from './hooks';
+import { getData } from '../../../../common/utils';
+import { useFocusEffect } from '@react-navigation/native';
 
 interface Props {
   month: number;
   year: number;
 }
 
-interface TransactionByDayInterface {
-  [key: string] : TransactionInterface[]
-}
-
 const TransDetailsDaily = ({month, year}: Props) => {
 
-  const {sections} = useTransDetailsMonthly(mockTransaction,month,year)
+  const [transactionData, setTransactionData] = useState<TransactionInterface[]>([])
+  useEffect(() => {
+
+    const fetchData = async () => {
+      const data = await getData()
+      if(data?.success){
+        setTransactionData(data?.data)
+      }
+    }
+    fetchData()
+  },[])
+
+  useFocusEffect(
+    useCallback(() => {
+      const fetchData = async () => {
+        const data = await getData()
+        if(data?.success){
+          setTransactionData(data?.data)
+        }
+      }
+      fetchData()
+    }, [])
+  );
+
+
+  const {sections} = useTransDetailsMonthly(transactionData,month,year)
 
   return (
     <View>
