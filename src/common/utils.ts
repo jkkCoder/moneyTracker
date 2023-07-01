@@ -82,6 +82,27 @@ export const addSingleData = async (data : TransactionInterface) => {
     }
 }
 
+export const deleteDataById = async(id:number|undefined) => {
+    try {
+        if(!id){
+            return {
+                success: false,
+            }
+        }
+        const value = await AsyncStorage.getItem('data');
+        const dt: TransactionInterface[] = value ? JSON.parse(value) : []
+        const newDt = dt?.filter( d=> d?.id !== id)
+        await AsyncStorage.setItem('data', JSON.stringify(newDt));
+        return {
+            success: true,
+        }
+    } catch (e) {
+        return {
+            success: false,
+        }
+    }
+}
+
 export const capitalizeFirstLetter = (str: string) => {
     return `${str.charAt(0).toUpperCase()}${str.slice(1)}`;
 }

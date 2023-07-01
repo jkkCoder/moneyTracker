@@ -7,7 +7,7 @@ import styles from './styles'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import Form from './components/Form'
 import moment from 'moment'
-import { addSingleData } from '../../common/utils'
+import { addSingleData, deleteDataById } from '../../common/utils'
 
 interface AddExpenseParams {
   method: string;
@@ -54,11 +54,12 @@ const AddExpense = () => {
       })
       navigation.goBack()
     }else{    //edit the data
-
+      
     }
   }
-  const deleteHandler = () => {
-    // delete existing data
+  const deleteHandler =async () => {  // delete existing data
+    await deleteDataById(id)
+    navigation.goBack()
   }
   return (
     <>
