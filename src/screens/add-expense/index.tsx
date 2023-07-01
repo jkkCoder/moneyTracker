@@ -7,7 +7,7 @@ import styles from './styles'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import Form from './components/Form'
 import moment from 'moment'
-import { addSingleData, deleteDataById } from '../../common/utils'
+import { addSingleData, deleteDataById, editDataById } from '../../common/utils'
 
 interface AddExpenseParams {
   method: string;
@@ -26,7 +26,7 @@ const AddExpense = () => {
   const route = useRoute<AddExpenseRouteProp>()
   const {method,id,date,category,title,description,amount,type} = route?.params
   const navigation = useNavigation()
-  const [expenseType, setExpenseType] = useState('Expense') // Expense/Income
+  const [expenseType, setExpenseType] = useState(type || 'Expense') // Expense/Income
   const [transactionData, setTransactionData] = useState({
     date : date ? moment(date).format('yyyy-MM-DD') : moment().format("yyyy-MM-DD") ,
     category: category || "",
@@ -36,7 +36,7 @@ const AddExpense = () => {
     amount: amount || "",
   })
 
-  const disabled = transactionData?.category === '' && transactionData?.title === '' && transactionData?.amount === ''
+  const disabled = transactionData?.category === '' || transactionData?.title === '' || transactionData?.amount === ''
 
   const saveHandler = async () => {
     if(method==="create"){  //save new data
@@ -54,7 +54,19 @@ const AddExpense = () => {
       })
       navigation.goBack()
     }else{    //edit the data
-      
+      await editDataById(id, {
+        id: id || Date.now(),   //always id will be passed, fallback case will never occur
+        date: transactionData?.date,
+        category: transactionData?.category,
+        type: expenseType?.toLowerCase(),
+        title: transactionData?.title,
+        description: transactionData?.description,
+        amount: Number(transactionData?.amount),
+        year: Number(moment(transactionData?.date).format('Y')),
+        month: Number(moment(transactionData?.date).format('M')),
+        day: Number(moment(transactionData?.date).format('D'))
+      })
+      navigation.goBack()
     }
   }
   const deleteHandler =async () => {  // delete existing data
