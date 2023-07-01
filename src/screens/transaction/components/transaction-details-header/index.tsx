@@ -6,22 +6,12 @@ import { useTransactionDetailsHeader } from './hooks';
 import styles from './styles';
 
 interface Props {
+    transactionData: TransactionInterface[]
     month: number;
     year:number
 }
 
-const TransactionDetailsHeader = ({month, year}:Props) => {
-  const [transactionData, setTransactionData] = useState<TransactionInterface[]>([])
-  useEffect(() => {
-
-    const fetchData = async () => {
-      const data = await getData()
-      if(data?.success){
-        setTransactionData(data?.data)
-      }
-    }
-    fetchData()
-  },[])
+const TransactionDetailsHeader = ({transactionData, month, year}:Props) => {
 
   const {income,expense} = useTransactionDetailsHeader(transactionData,month,year)
 

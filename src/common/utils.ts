@@ -65,3 +65,19 @@ export const setData = async (data : TransactionInterface) => {
         }
     }
 }
+
+export const addSingleData = async (data : TransactionInterface) => {
+    try {
+        const value = await AsyncStorage.getItem('data');
+        const dt = value ? JSON.parse(value) : []
+        const newDt = [ data , ...dt ]
+        await AsyncStorage.setItem('data', JSON.stringify(newDt));
+        return {
+            success: true,
+        }
+    } catch (e) {
+        return {
+            success: false,
+        }
+    }
+}

@@ -1,20 +1,44 @@
 import { Text, Pressable, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import styles from './styles'
 import PaddingView from '../../common/components/padding-view'
 import TransDetailsDaily from './components/trans-details-monthly'
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import moment from 'moment'
 import TransactionDetailsHeader from './components/transaction-details-header'
 import ScreenHeader from '../../common/components/screen-header'
 import DropDown from './components/DropDown'
-import { NumToMonth } from '../../common/utils'
+import { NumToMonth, getData, setData } from '../../common/utils'
+import { TransactionInterface } from '../../common/interface'
 
 const Transaction = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
   const [month, setMonth] = useState<number>(0)
   const [year, setYear] = useState<number>(0)
+  const [transactionData, setTransactionData] = useState<TransactionInterface[]>([])
+  useEffect(() => {
+
+    const fetchData = async () => {
+      const data = await getData()
+      if(data?.success){
+        setTransactionData(data?.data)
+      }
+    }
+    fetchData()
+  },[])
+
+  useFocusEffect(
+    useCallback(() => {  
+      const fetchData = async () => {
+        const data = await getData()
+        if(data?.success){
+          setTransactionData(data?.data)
+        }
+      }
+      fetchData()
+    }, [])
+  );
 
   useEffect(() => {
     setMonth(Number(moment().format('M')))
@@ -56,8 +80,8 @@ const Transaction = () => {
           <DropDown options={monthOptions} selectedValue={NumToMonth[month]} onValueChange={setMonth}/>
           <DropDown options={yearOptions} selectedValue={year.toString()} onValueChange={setYear}/>
         </View>
-        <TransactionDetailsHeader month={month} year={year}/>
-        <TransDetailsDaily month={month} year={year}/>
+        <TransactionDetailsHeader transactionData={transactionData} month={month} year={year}/>
+        <TransDetailsDaily transactionData={transactionData} month={month} year={year}/>
         <Pressable onPress={handleNavigator} style={styles.addBtn}>
           <Text>Add Expense</Text>
         </Pressable>

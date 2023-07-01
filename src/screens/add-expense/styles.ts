@@ -25,5 +25,8 @@ export default StyleSheet.create({
     btnTxt:{
         color: colors.white,
         fontSize: scale(16),
+    },
+    disabledBtn:{
+        opacity: 0.5
     }
 })

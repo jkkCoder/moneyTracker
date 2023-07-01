@@ -4,41 +4,15 @@ import { TransactionInterface } from '../../../../common/interface';
 import Trans from '../trans';
 import TransHeader from '../trans-header';
 import { useTransDetailsMonthly } from './hooks';
-import { getData } from '../../../../common/utils';
-import { useFocusEffect } from '@react-navigation/native';
 import styles from './styles';
-
+ 
 interface Props {
+  transactionData: TransactionInterface[];
   month: number;
   year: number;
 }
 
-const TransDetailsDaily = ({month, year}: Props) => {
-
-  const [transactionData, setTransactionData] = useState<TransactionInterface[]>([])
-  useEffect(() => {
-
-    const fetchData = async () => {
-      const data = await getData()
-      if(data?.success){
-        setTransactionData(data?.data)
-      }
-    }
-    fetchData()
-  },[])
-
-  useFocusEffect(
-    useCallback(() => {
-      const fetchData = async () => {
-        const data = await getData()
-        if(data?.success){
-          setTransactionData(data?.data)
-        }
-      }
-      fetchData()
-    }, [])
-  );
-
+const TransDetailsDaily = ({transactionData, month, year}: Props) => {
 
   const {sections} = useTransDetailsMonthly(transactionData,month,year)
 
@@ -47,6 +21,7 @@ const TransDetailsDaily = ({month, year}: Props) => {
       {
         sections?.length > 0 ? (
           <SectionList
+            showsVerticalScrollIndicator={false}
             sections={sections}
             renderItem={({item}) => (
               <Trans 
@@ -61,6 +36,9 @@ const TransDetailsDaily = ({month, year}: Props) => {
               <TransHeader date={section?.data?.[0]?.date} />
             )}
             keyExtractor={(item) => item?.id?.toString()}
+            ListFooterComponent={() => (
+              <View style={styles.empty}/>
+            )}
           /> 
         ) : (
           <View style={styles.noData}>

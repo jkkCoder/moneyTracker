@@ -1,7 +1,7 @@
 import { TransactionInterface } from "../../../../common/interface";
 
 export const useTransactionDetailsHeader = (transactionData:TransactionInterface[],month:number, year:number) => {
-  const filteredTransactionData = transactionData?.filter( dt => dt?.month === month && dt?. year === year)
+  const filteredTransactionData = transactionData?.filter( dt => dt?.month === month && dt?. year === year) || []
 
   const expense = filteredTransactionData?.reduce((acc,item) => {
     if(item?.type?.toLowerCase() === 'expense'){
