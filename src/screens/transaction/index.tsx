@@ -11,11 +11,13 @@ import ScreenHeader from '../../common/components/screen-header'
 import DropDown from './components/DropDown'
 import { NumToMonth, getData, setData } from '../../common/utils'
 import { TransactionInterface } from '../../common/interface'
+import TabBar from './components/tab-bar'
 
 const Transaction = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
   const [month, setMonth] = useState<number>(0)
   const [year, setYear] = useState<number>(0)
+  const [tabIndex, setTabIndex] = useState<number>(0)
   const [transactionData, setTransactionData] = useState<TransactionInterface[]>([])
   useEffect(() => {
 
@@ -74,8 +76,12 @@ const Transaction = () => {
     }
   return (
     <>
-      <ScreenHeader title='Transactions'/>
       <PaddingView>
+        <View style={styles.tabContainer}>
+          <TabBar id={0} tabIndex={tabIndex} setTabIndex={setTabIndex} selected={tabIndex === 0} title="Monthly" />
+          <TabBar id={1} tabIndex={tabIndex} setTabIndex={setTabIndex} selected={tabIndex === 1} title="Yearly" />
+          <TabBar id={2} tabIndex={tabIndex} setTabIndex={setTabIndex} selected={tabIndex === 2} title="Total" />
+        </View>
         <View style={styles.dropDownContainer}>
           <DropDown options={monthOptions} selectedValue={NumToMonth[month]} onValueChange={setMonth}/>
           <DropDown options={yearOptions} selectedValue={year.toString()} onValueChange={setYear}/>

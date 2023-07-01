@@ -17,4 +17,7 @@ export default StyleSheet.create({
     dropDownContainer:{
         flexDirection: 'row',
     },
+    tabContainer:{
+        flexDirection: 'row',
+    },
 })
