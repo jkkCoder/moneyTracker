@@ -82,7 +82,6 @@ const Transaction = () => {
         <View style={styles.tabContainer}>
           <TabBar id={0} tabIndex={tabIndex} setTabIndex={setTabIndex} selected={tabIndex === 0} title="Daily" />
           <TabBar id={1} tabIndex={tabIndex} setTabIndex={setTabIndex} selected={tabIndex === 1} title="Monthly" />
-          <TabBar id={2} tabIndex={tabIndex} setTabIndex={setTabIndex} selected={tabIndex === 2} title="Yearly" />
         </View>
         {
           tabIndex === 0 && (
