@@ -6,16 +6,11 @@ import { useTransactionDetailsHeader } from './hooks';
 import styles from './styles';
 
 interface Props {
-    transactionData: TransactionInterface[]
-    month: number;
-    year:number
+    income: number;
+    expense: number;
 }
 
-const TransactionDetailsHeader = ({transactionData, month, year}:Props) => {
-
-  const {income,expense} = useTransactionDetailsHeader(transactionData,month,year)
-
-
+const TransactionDetailsHeader = ({income, expense}:Props) => {
   return (
     <>
         <View style={styles.divider} />

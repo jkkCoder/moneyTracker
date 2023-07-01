@@ -2,16 +2,17 @@ import { Text, Pressable, View } from 'react-native'
 import React, { useEffect, useState, useCallback } from 'react'
 import styles from './styles'
 import PaddingView from '../../common/components/padding-view'
-import TransDetailsDaily from './components/trans-details-monthly'
+import TransDetailsDaily from './components/trans-details-daily'
 import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import moment from 'moment'
 import TransactionDetailsHeader from './components/transaction-details-header'
-import ScreenHeader from '../../common/components/screen-header'
 import DropDown from './components/DropDown'
 import { NumToMonth, getData, setData } from '../../common/utils'
 import { TransactionInterface } from '../../common/interface'
 import TabBar from './components/tab-bar'
+import { useTransactionDetailsHeader } from './components/transaction-details-header/hooks'
+import TransDetailsMonthly from './components/trans-details-monthly'
 
 const Transaction = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -19,8 +20,10 @@ const Transaction = () => {
   const [year, setYear] = useState<number>(0)
   const [tabIndex, setTabIndex] = useState<number>(0)
   const [transactionData, setTransactionData] = useState<TransactionInterface[]>([])
-  useEffect(() => {
 
+  const {incomeDaily,expenseDaily,incomeYearly, expenseYearly} = useTransactionDetailsHeader(transactionData,month,year)
+
+  useEffect(() => {
     const fetchData = async () => {
       const data = await getData()
       if(data?.success){
@@ -45,8 +48,7 @@ const Transaction = () => {
   useEffect(() => {
     setMonth(Number(moment().format('M')))
     setYear(Number(moment().format('y')))
-  
-  },[])
+  },[tabIndex])
 
   const handleNavigator = () => {
     navigation.navigate('addExpense',{
@@ -78,16 +80,34 @@ const Transaction = () => {
     <>
       <PaddingView>
         <View style={styles.tabContainer}>
-          <TabBar id={0} tabIndex={tabIndex} setTabIndex={setTabIndex} selected={tabIndex === 0} title="Monthly" />
-          <TabBar id={1} tabIndex={tabIndex} setTabIndex={setTabIndex} selected={tabIndex === 1} title="Yearly" />
-          <TabBar id={2} tabIndex={tabIndex} setTabIndex={setTabIndex} selected={tabIndex === 2} title="Total" />
+          <TabBar id={0} tabIndex={tabIndex} setTabIndex={setTabIndex} selected={tabIndex === 0} title="Daily" />
+          <TabBar id={1} tabIndex={tabIndex} setTabIndex={setTabIndex} selected={tabIndex === 1} title="Monthly" />
+          <TabBar id={2} tabIndex={tabIndex} setTabIndex={setTabIndex} selected={tabIndex === 2} title="Yearly" />
         </View>
-        <View style={styles.dropDownContainer}>
-          <DropDown options={monthOptions} selectedValue={NumToMonth[month]} onValueChange={setMonth}/>
-          <DropDown options={yearOptions} selectedValue={year.toString()} onValueChange={setYear}/>
-        </View>
-        <TransactionDetailsHeader transactionData={transactionData} month={month} year={year}/>
-        <TransDetailsDaily transactionData={transactionData} month={month} year={year}/>
+        {
+          tabIndex === 0 && (
+            <>
+              <View style={styles.dropDownContainer}>
+                <DropDown options={monthOptions} selectedValue={NumToMonth[month]} onValueChange={setMonth}/>
+                <DropDown options={yearOptions} selectedValue={year.toString()} onValueChange={setYear}/>
+              </View>
+              <TransactionDetailsHeader income={incomeDaily} expense={expenseDaily}/>
+              <TransDetailsDaily transactionData={transactionData} month={month} year={year}/>
+            </>
+          )
+        }
+        {
+          tabIndex === 1 && (
+            <>
+              <View style={styles.dropDownContainer}>
+                <DropDown options={yearOptions} selectedValue={year.toString()} onValueChange={setYear}/>  
+              </View>
+              <TransactionDetailsHeader income={incomeYearly} expense={expenseYearly}/>
+              <TransDetailsMonthly transactionData={transactionData} year={year} />
+            </>
+          )
+        }
+        
         <Pressable onPress={handleNavigator} style={styles.addBtn}>
           <Text>Add Expense</Text>
         </Pressable>
