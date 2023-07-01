@@ -10,33 +10,36 @@ import moment from 'moment'
 import { addSingleData } from '../../common/utils'
 
 interface AddExpenseParams {
-  type: string;
+  method: string;
+  id?: number;
+  date?:string;
+  category?: string;
+  title?: string;
+  description?: string;
+  amount?: string;
+  type ?: string;
 }
 
 type AddExpenseRouteProp = RouteProp<Record<string, AddExpenseParams>, string>;
 
 const AddExpense = () => {
   const route = useRoute<AddExpenseRouteProp>()
-  const {type} = route?.params
+  const {method,id,date,category,title,description,amount,type} = route?.params
   const navigation = useNavigation()
   const [expenseType, setExpenseType] = useState('Expense') // Expense/Income
   const [transactionData, setTransactionData] = useState({
-    date : moment().format("yyyy-MM-DD") ,
-    category: "",
-    type: "",
-    title: "",
-    description: "",
-    amount: "",
+    date : date ? moment(date).format('yyyy-MM-DD') : moment().format("yyyy-MM-DD") ,
+    category: category || "",
+    type: type || "",
+    title: title || "",
+    description: description || "",
+    amount: amount || "",
   })
-
-  useEffect(() => {
-    setTransactionData(prev => ({...prev, category: ''}))
-  },[expenseType])
 
   const disabled = transactionData?.category === '' && transactionData?.title === '' && transactionData?.amount === ''
 
   const saveHandler = async () => {
-    if(type==="create"){  //save new data
+    if(method==="create"){  //save new data
       await addSingleData({
         id: Date.now(),
         date: transactionData?.date,
@@ -62,15 +65,15 @@ const AddExpense = () => {
       <ScreenHeader title={expenseType} hasBack/>
       <PaddingView>
         <View style={styles.typeContainer}>
-          <TypeContainer expenseType={expenseType} setExpenseType={setExpenseType} txt="Expense" selected={expenseType === 'Expense'} />
-          <TypeContainer expenseType={expenseType} setExpenseType={setExpenseType} txt="Income" selected={expenseType === 'Income'} />
+          <TypeContainer setTransactionData={setTransactionData} expenseType={expenseType} setExpenseType={setExpenseType} txt="Expense" selected={expenseType === 'Expense'} />
+          <TypeContainer setTransactionData={setTransactionData} expenseType={expenseType} setExpenseType={setExpenseType} txt="Income" selected={expenseType === 'Income'} />
         </View>
         <View style={styles.formContainer}>
           <Form expenseType={expenseType} TransactionData={transactionData} setTransactionData={setTransactionData}/>
         </View>
         <View style={styles.btnContainer}>
           {
-            type?.toLowerCase() !== 'create' && (
+            method?.toLowerCase() !== 'create' && (
               <Pressable style={styles.saveBtn} onPress={deleteHandler}>
                 <Text style={styles.btnTxt}>Delete</Text>
               </Pressable>

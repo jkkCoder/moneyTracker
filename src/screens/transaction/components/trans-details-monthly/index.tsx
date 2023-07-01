@@ -27,6 +27,7 @@ const TransDetailsDaily = ({transactionData, month, year}: Props) => {
               <Trans 
                 id={item?.id} 
                 category={item?.category} 
+                date={item?.date}
                 title={item?.title} 
                 description={item?.description} 
                 amount={item?.amount} 

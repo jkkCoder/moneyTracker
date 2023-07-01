@@ -48,7 +48,7 @@ const Transaction = () => {
 
   const handleNavigator = () => {
     navigation.navigate('addExpense',{
-      type: 'create'
+      method: 'create'
     })
   }
 
