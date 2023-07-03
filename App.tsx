@@ -51,7 +51,13 @@ const App = () => {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
-          headerShown:false
+          headerShown:false,
+          tabBarLabelPosition: "beside-icon",
+          tabBarLabelStyle: {
+            fontWeight: "700",
+            fontSize: 15
+          },
+          tabBarIconStyle: { display: "none" },
         }}
       >
         <Tab.Screen 
