@@ -1,21 +1,16 @@
-import { Text, Pressable, View } from 'react-native'
-import React, { useEffect, useState, useCallback } from 'react'
-import styles from './styles'
-import PaddingView from '../../common/components/padding-view'
-import TransDetailsDaily from './components/trans-details-daily'
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import moment from 'moment'
-import TransactionDetailsHeader from './components/transaction-details-header'
-import DropDown from './components/DropDown'
-import { NumToMonth, getData } from '../../common/utils'
-import { TransactionInterface } from '../../common/interface'
-import { useTransactionDetailsHeader } from './components/transaction-details-header/hooks'
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import {useState, useEffect, useCallback} from "react"
+import { TransactionInterface } from "../../common/interface";
+import { useTransactionDetailsHeader } from "./components/transaction-details-header/hooks";
+import { getData } from "../../common/utils";
+import moment from "moment";
 
-const Transaction = () => {
+export const useTransaction = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
   const [month, setMonth] = useState<number>(0)
   const [year, setYear] = useState<number>(0)
+  const [tabIndex, setTabIndex] = useState<number>(0)
   const [transactionData, setTransactionData] = useState<TransactionInterface[]>([])
 
   const {incomeDaily,expenseDaily,incomeYearly, expenseYearly} = useTransactionDetailsHeader(transactionData,month,year)
@@ -45,7 +40,7 @@ const Transaction = () => {
   useEffect(() => {
     setMonth(Number(moment().format('M')))
     setYear(Number(moment().format('y')))
-  },[])
+  },[tabIndex])
 
   const handleNavigator = () => {
     navigation.navigate('addExpense',{
@@ -73,23 +68,9 @@ const Transaction = () => {
     for (let yr = 2010; yr <= currentYear; yr++) {
       yearOptions.push({ key: yr, label: yr.toString() , value: yr});
     }
-  return (
-    <>
-      <PaddingView>
-        <View style={styles.dropDownContainer}>
-          <DropDown options={monthOptions} selectedValue={NumToMonth[month]} onValueChange={setMonth}/>
-          <DropDown options={yearOptions} selectedValue={year.toString()} onValueChange={setYear}/>
-        </View>
-        <TransactionDetailsHeader income={incomeDaily} expense={expenseDaily}/>
-        <TransDetailsDaily transactionData={transactionData} month={month} year={year}/>
-        
-        <Pressable onPress={handleNavigator} style={styles.addBtn}>
-          <Text>Add Expense</Text>
-        </Pressable>
-      </PaddingView>
-    </>
-    
-  )
-}
 
-export default Transaction
+
+    return {
+        
+    }
+}

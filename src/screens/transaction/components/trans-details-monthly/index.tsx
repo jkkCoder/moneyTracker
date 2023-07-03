@@ -17,7 +17,7 @@ const TransDetailsMonthly = ({transactionData, year}: Props) => {
       {
         [1,2,3,4,5,6,7,8,9,10,11,12].map(m => {
           return (
-            <TransMonthly month={m} year={year} monthlyTransaction={transDetailsMonthly[m]}/>
+            <TransMonthly key={m} month={m} year={year} monthlyTransaction={transDetailsMonthly[m]}/>
           )
         })
       }
