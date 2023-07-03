@@ -68,11 +68,11 @@ const Transaction = () => {
       {key: 12, label: "Dec", value: 12}
     ]
 
-    const yearOptions = [];
-    const currentYear = Number(moment().format('y'))
-    for (let yr = 2010; yr <= currentYear; yr++) {
-      yearOptions.push({ key: yr, label: yr.toString() , value: yr});
-    }
+  const yearOptions = [];
+  const currentYear = Number(moment().format('y'))
+  for (let yr = 2010; yr <= currentYear; yr++) {
+    yearOptions.push({ key: yr, label: yr.toString() , value: yr});
+  }
   return (
     <>
       <PaddingView>

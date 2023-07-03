@@ -5,17 +5,17 @@ import { TransactionInterface } from '../../../../common/interface';
 import { TransactionData } from '../Form';
 
 interface Props {
-    setTransactionData: React.Dispatch<React.SetStateAction<TransactionData>>
+    setTransactionData?: React.Dispatch<React.SetStateAction<TransactionData>>
     txt: string;
     selected: boolean;
     setExpenseType: React.Dispatch<React.SetStateAction<string>>;
     expenseType: string;
 }
 
-const TypeContainer = ({setTransactionData, expenseType, setExpenseType, txt, selected}:Props) => {
+const TypeContainer = ({ setTransactionData, expenseType, setExpenseType, txt, selected}:Props) => {
   const pressHandler = () => {
     if(expenseType !== txt){
-        setTransactionData(prev => ({ ...prev, category: ""}))
+        setTransactionData && setTransactionData(prev => ({ ...prev, category: ""}))
         setExpenseType(txt)
     }
   }

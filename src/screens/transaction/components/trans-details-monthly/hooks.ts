@@ -18,7 +18,6 @@ export const useTransDetailsMonthly = (
   filteredData?.forEach(data => {
     transDetailsMonthly[data?.month].push(data)
   })
-  console.log("sorted data is ", transDetailsMonthly)
 
   return {
     transDetailsMonthly
