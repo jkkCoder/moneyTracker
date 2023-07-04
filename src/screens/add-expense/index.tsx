@@ -8,6 +8,7 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import Form from './components/Form'
 import moment from 'moment'
 import { addSingleData, deleteDataById, editDataById } from '../../common/utils'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 interface AddExpenseParams {
   method: string;
@@ -74,7 +75,8 @@ const AddExpense = () => {
     navigation.goBack()
   }
   return (
-    <>
+    <KeyboardAwareScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 100 }}>
+    
       <ScreenHeader title={expenseType} hasBack/>
       <PaddingView>
         <View style={styles.typeContainer}>
@@ -97,7 +99,7 @@ const AddExpense = () => {
           </Pressable>
         </View>
       </PaddingView>
-    </>
+    </KeyboardAwareScrollView>
     
   )
 }
