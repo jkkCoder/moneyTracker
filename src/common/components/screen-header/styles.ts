@@ -20,6 +20,7 @@ export default StyleSheet.create({
         textAlign: 'center',
     },
     back: {
+        padding: scale(7),
         color: colors.black
     },
     txt:{
