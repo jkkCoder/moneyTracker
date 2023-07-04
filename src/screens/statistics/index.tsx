@@ -48,9 +48,8 @@ const Statistics = () => {
                 color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
               }}
               accessor="totalAmount"
-              backgroundColor="#FFFFFF"
+              backgroundColor="transparent"
               paddingLeft="15"
-              absolute
               style={styles.chart}
             />
           ) : (

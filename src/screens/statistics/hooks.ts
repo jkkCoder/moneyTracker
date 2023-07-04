@@ -1,6 +1,6 @@
 import moment from "moment";
 import {useEffect,useState} from "react"
-import { getData } from "../../common/utils";
+import { getData, pieColors, randomColor } from "../../common/utils";
 import { TransactionInterface } from "../../common/interface";
 
 interface CategoryWiseData {
@@ -24,13 +24,12 @@ export const useStatistics = (year:number, month:number) => {
         }
         fetchData()
     },[])
-
-    const randomColor = () => ('#' + ((Math.random() * 0xffffff) << 0).toString(16) + '000000').slice(0, 7)
     
     const filteredTransactionData = transactionData?.filter( dt => {
         return dt?.month === month && dt?.year === year && dt?.type?.toLowerCase() === expenseType?.toLowerCase()
     }) || []
     
+    let colorIndex = 0
     const categoryWiseData:CategoryWiseData[] = filteredTransactionData.reduce((acc:CategoryWiseData[], curr) => {
         const existingCategory = acc.find(item => item.name === curr.category);
         if (existingCategory) {
@@ -41,7 +40,7 @@ export const useStatistics = (year:number, month:number) => {
                 name: curr.category, 
                 type: curr.type, 
                 totalAmount: curr.amount,
-                color: randomColor(),
+                color: colorIndex < 15 ? pieColors[colorIndex++] : randomColor(),
                 legendFontColor: '#7F7F7F',
                 legendFontSize: 12,
             }

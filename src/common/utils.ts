@@ -129,3 +129,24 @@ export const editDataById = async(id:number|undefined, data : TransactionInterfa
 export const capitalizeFirstLetter = (str: string) => {
     return `${str.charAt(0).toUpperCase()}${str.slice(1)}`;
 }
+
+export const pieColors = [
+    '#FF6384',
+    '#36A2EB',
+    '#FFCE56',
+    '#4BC0C0',
+    '#9966FF',
+    '#FF9F40',
+    '#FF6384',
+    '#36A2EB',
+    '#FFCE56',
+    '#4BC0C0',
+    '#9966FF',
+    '#FF9F40',
+    '#FF6384',
+    '#36A2EB',
+    '#FFCE56',
+    '#4BC0C0'
+  ];
+
+export const randomColor = () => ('#' + ((Math.random() * 0xffffff) << 0).toString(16) + '000000').slice(0, 7)

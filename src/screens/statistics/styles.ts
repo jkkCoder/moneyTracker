@@ -9,7 +9,6 @@ export default StyleSheet.create({
         marginVertical: scale(18),
         borderRadius: scale(8),
         alignSelf: 'center',
-        flexDirection: 'row'
     },
     dropDownContainer:{
         flexDirection: 'row',
