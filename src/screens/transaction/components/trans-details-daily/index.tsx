@@ -22,7 +22,7 @@ const TransDetailsDaily = ({transactionData, month, year}: Props) => {
         sections?.length > 0 ? (
           <SectionList
             showsVerticalScrollIndicator={false}
-            sections={sections}
+            sections={sections?.reverse()}
             renderItem={({item}) => (
               <Trans 
                 id={item?.id} 
