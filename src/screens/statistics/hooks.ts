@@ -1,7 +1,8 @@
 import moment from "moment";
-import {useEffect,useState} from "react"
+import {useCallback, useEffect,useState} from "react"
 import { getData, pieColors, randomColor } from "../../common/utils";
 import { TransactionInterface } from "../../common/interface";
+import { useFocusEffect } from "@react-navigation/native";
 
 interface CategoryWiseData {
     name: string;
@@ -24,6 +25,18 @@ export const useStatistics = (year:number, month:number) => {
         }
         fetchData()
     },[])
+
+    useFocusEffect(
+        useCallback(() => {  
+            const fetchData = async () => {
+            const data = await getData()
+            if(data?.success){
+                setTransactionData(data?.data)
+            }
+            }
+            fetchData()
+        }, [])
+    );
     
     const filteredTransactionData = transactionData?.filter( dt => {
         return dt?.month === month && dt?.year === year && dt?.type?.toLowerCase() === expenseType?.toLowerCase()
@@ -48,8 +61,6 @@ export const useStatistics = (year:number, month:number) => {
         }
         return acc;
     }, []);
-
-    console.log(categoryWiseData, 'cate')
 
     const monthOptions = [
         {key: 1, label: "Jan", value: 1}, 
