@@ -16,22 +16,13 @@ interface CategoryWiseData {
 export const useStatistics = (year:number, month:number) => {
     const [transactionData, setTransactionData] = useState<TransactionInterface[]>([])
     const [expenseType, setExpenseType] = useState('Expense') // Expense/Income
-    useEffect(() => {
-        const fetchData = async () => {
-            const data = await getData()
-            if(data?.success){
-            setTransactionData(data?.data)
-            }
-        }
-        fetchData()
-    },[])
 
     useFocusEffect(
         useCallback(() => {  
             const fetchData = async () => {
             const data = await getData()
             if(data?.success){
-                setTransactionData(data?.data)
+                setTransactionData(data?.data || [])
             }
             }
             fetchData()

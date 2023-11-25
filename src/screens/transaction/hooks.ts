@@ -15,22 +15,12 @@ export const useTransaction = () => {
 
   const {incomeDaily,expenseDaily,incomeYearly, expenseYearly} = useTransactionDetailsHeader(transactionData,month,year)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getData()
-      if(data?.success){
-        setTransactionData(data?.data)
-      }
-    }
-    fetchData()
-  },[])
-
   useFocusEffect(
     useCallback(() => {  
       const fetchData = async () => {
         const data = await getData()
         if(data?.success){
-          setTransactionData(data?.data)
+          setTransactionData(data?.data ||[])
         }
       }
       fetchData()

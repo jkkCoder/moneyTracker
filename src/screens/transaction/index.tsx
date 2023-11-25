@@ -8,7 +8,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import moment from 'moment'
 import TransactionDetailsHeader from './components/transaction-details-header'
 import DropDown from './components/DropDown'
-import { NumToMonth, getData } from '../../common/utils'
+import { NumToMonth, createTable, getData } from '../../common/utils'
 import { TransactionInterface } from '../../common/interface'
 import { useTransactionDetailsHeader } from './components/transaction-details-header/hooks'
 
@@ -23,9 +23,11 @@ const Transaction = () => {
   useFocusEffect(
     useCallback(() => {  
       const fetchData = async () => {
+        await createTable()
+
         const data = await getData()
         if(data?.success){
-          setTransactionData(data?.data)
+          setTransactionData(data?.data || [])
         }
       }
       fetchData()

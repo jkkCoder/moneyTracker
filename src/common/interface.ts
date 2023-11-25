@@ -10,3 +10,8 @@ export interface TransactionInterface {
     month: number;
     day: number;
 }
+
+export interface ExpenseResponse {
+    data?: TransactionInterface[];
+    success: boolean;
+}
