@@ -27,11 +27,10 @@ const Category = ({expenseType, setModalVisible, setTransactionData}:Props) => {
         );
     };
     return (
-        <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
-          <View style={styles.modalContainer}>
+        <Pressable onPress={() => setModalVisible(false)} style={styles.modalContainer}>
             <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Categories</Text>
-              <View style={styles.gridContainer}>
+                <Text style={styles.modalTitle}>Categories</Text>
+                <View style={styles.gridContainer}>
                 {
                     expenseType === 'Expense' ? <>
                         <View style={styles.row}>
@@ -41,7 +40,7 @@ const Category = ({expenseType, setModalVisible, setTransactionData}:Props) => {
                         </View>
                         <View style={styles.row}>
                             {renderGridItem('Transport')}
-                            {renderGridItem( 'Culture')}
+                            {renderGridItem( 'Card')}
                             {renderGridItem( 'Household')}
                         </View>
                         <View style={styles.row}>
@@ -66,16 +65,15 @@ const Category = ({expenseType, setModalVisible, setTransactionData}:Props) => {
                         </View>
                     </>
                 }
-              </View>
-              <Pressable
+                </View>
+                <Pressable
                 style={styles.closeButton}
                 onPress={() => setModalVisible(false)}
-              >
+                >
                 <Text style={styles.closeButtonText}>Close</Text>
-              </Pressable>
+                </Pressable>
             </View>
-          </View>
-        </TouchableWithoutFeedback>
+        </Pressable>
     )
 }
 

@@ -11,6 +11,7 @@ export default StyleSheet.create({
         borderWidth:scale(1),
         borderColor: colors.black,
         borderRadius: scale(5),
+        height: scale(35),
     },
     category: {
         width: '23%',
@@ -18,6 +19,7 @@ export default StyleSheet.create({
     },
     titleContainer: {
         width:'51%',
+        justifyContent:'center'
     },
     title:{
         color: colors.black,
