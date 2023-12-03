@@ -8,7 +8,7 @@ export default StyleSheet.create({
         marginVertical: scale(4),
     },
     selectedContainer:{
-        width: scale(80),
+        width: scale(60),
         justifyContent:'center',
         alignItems:'center',
         marginVertical: scale(5),

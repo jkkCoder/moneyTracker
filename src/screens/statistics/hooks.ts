@@ -1,5 +1,5 @@
 import moment from "moment";
-import {useCallback, useEffect,useState} from "react"
+import {useCallback, useEffect,useMemo,useState} from "react"
 import { getData, pieColors, randomColor } from "../../common/utils";
 import { TransactionInterface } from "../../common/interface";
 import { useFocusEffect } from "@react-navigation/native";
@@ -13,7 +13,12 @@ interface CategoryWiseData {
     legendFontSize:number;
 }
 
-export const useStatistics = (year:number, month:number) => {
+interface BarChartData {
+    x:string;
+    y:number
+}
+
+export const useStatistics = (year:number, month:number,year2:number,month2:number) => {
     const [transactionData, setTransactionData] = useState<TransactionInterface[]>([])
     const [expenseType, setExpenseType] = useState('Expense') // Expense/Income
 
@@ -29,17 +34,17 @@ export const useStatistics = (year:number, month:number) => {
         }, [])
     );
     
-    const filteredTransactionData = transactionData?.filter( dt => {
+    const filteredTransactionData = (month:number,year:number) => transactionData?.filter( dt => {
         return dt?.month === month && dt?.year === year && dt?.type?.toLowerCase() === expenseType?.toLowerCase()
     }) || []
     
     let colorIndex = 0
-    const categoryWiseData:CategoryWiseData[] = filteredTransactionData.reduce((acc:CategoryWiseData[], curr) => {
+    const categoryWiseData:CategoryWiseData[] = filteredTransactionData(month,year).reduce((acc:CategoryWiseData[], curr) => {
         const existingCategory = acc.find(item => item.name === curr.category);
         if (existingCategory) {
-          existingCategory.totalAmount += curr.amount;
+            existingCategory.totalAmount += curr.amount;
         } else {
-          acc.push(
+            acc.push(
             { 
                 name: curr.category, 
                 type: curr.type, 
@@ -48,10 +53,34 @@ export const useStatistics = (year:number, month:number) => {
                 legendFontColor: '#7F7F7F',
                 legendFontSize: 12,
             }
-          );
+            );
         }
         return acc;
     }, []);
+
+    const getBarChartData = (year:number,month:number) => {
+        const data:BarChartData[] = filteredTransactionData(month,year).reduce((acc:BarChartData[], curr) => {
+            const existingCategory = acc.find(item => item.x === curr.category)
+            if(existingCategory) {
+                existingCategory.y += curr.amount
+            } else{
+                acc.push(
+                    {
+                        x: curr.category,
+                        y: curr.amount
+                    }
+                )
+            }
+            return acc;
+        }, []);
+
+        return data;
+    }
+
+    const compareData = {
+        month1: getBarChartData(year,month),
+        month2: getBarChartData(year2,month2)
+    }
 
     const monthOptions = [
         {key: 1, label: "Jan", value: 1}, 
@@ -79,6 +108,7 @@ export const useStatistics = (year:number, month:number) => {
         yearOptions,
         expenseType,
         setExpenseType,
-        categoryWiseData
+        categoryWiseData,
+        compareData
     }
 }

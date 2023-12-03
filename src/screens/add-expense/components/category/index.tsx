@@ -44,7 +44,7 @@ const Category = ({expenseType, setModalVisible, setTransactionData}:Props) => {
                             {renderGridItem( 'Household')}
                         </View>
                         <View style={styles.row}>
-                            {renderGridItem('Apparel')}
+                            {renderGridItem('Investment')}
                             {renderGridItem('Beauty')}
                             {renderGridItem('Health')}
                         </View>
