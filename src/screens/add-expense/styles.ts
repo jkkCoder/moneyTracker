@@ -8,7 +8,7 @@ export default StyleSheet.create({
         justifyContent: 'space-between'
     },
     formContainer: {
-        marginVertical: scale(20)
+        marginVertical: scale(4)
     },
     saveBtn: {
         backgroundColor: colors.lightblue,

@@ -1,7 +1,8 @@
-import { View, Text } from 'react-native'
+import { View, Text, Pressable } from 'react-native'
 import React from 'react'
 import styles from './styles';
 import { useNavigation } from '@react-navigation/native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 interface Props {
     hasBack? : boolean;
@@ -15,7 +16,11 @@ const ScreenHeader = ({hasBack = false, title}: Props) => {
   }
   return (
     <View style={styles.container}>
-      {hasBack && <Text style={styles.back} onPress={backHandler}>Go Back</Text>}
+      {hasBack &&(
+        <Pressable onPress={backHandler} style={styles.backContainer}>
+          <MaterialIcons name="arrow-back" size={25} color="white"/>
+        </Pressable>
+      ) }
       <Text style={[styles.txt,  hasBack? styles.hasBack : styles.notHasBack]}>{title}</Text>
     </View>
   )

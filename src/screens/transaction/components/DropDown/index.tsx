@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, View, Text, TouchableOpacity, TouchableWithoutFeedback, ScrollView } from 'react-native';
 import styles from './styles';
+import Entypo from "react-native-vector-icons/Entypo"
 
 interface Props {
     options: {key:number; label:string; value:number}[];
@@ -25,7 +26,10 @@ const DropDown = ({ options, selectedValue, onValueChange }:Props) => {
     <View style={styles.container}>
       <TouchableOpacity style={styles.selectedContainer} onPress={toggleModal}>
         <Text>{selectedValue}</Text>
-        <Text style={styles.dropDownIcon}>v</Text>
+        <View style={styles.dropDownIcon}>
+          <Entypo name="chevron-down" size={20} color="black"/>
+        </View>
+       
       </TouchableOpacity>
 
       <Modal

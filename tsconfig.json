@@ -1,3 +1,8 @@
 {
-  "extends": "@tsconfig/react-native/tsconfig.json"
+  "extends": "@tsconfig/react-native/tsconfig.json", 
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "node_modules/react-native-vector-icons/*"
+  ]
 }

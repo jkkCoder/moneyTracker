@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from 'react-native'
+import { View, Text, Pressable, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import PaddingView from '../../common/components/padding-view'
 import ScreenHeader from '../../common/components/screen-header'
@@ -75,7 +75,7 @@ const AddExpense = () => {
     navigation.goBack()
   }
   return (
-    <KeyboardAwareScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 100 }}>
+    <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 100 }}>
     
       <ScreenHeader title={expenseType} hasBack/>
       <PaddingView>
@@ -99,7 +99,7 @@ const AddExpense = () => {
           </Pressable>
         </View>
       </PaddingView>
-    </KeyboardAwareScrollView>
+    </ScrollView>
     
   )
 }

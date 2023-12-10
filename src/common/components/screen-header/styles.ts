@@ -10,6 +10,9 @@ export default StyleSheet.create({
         paddingLeft: scale(10),
         flexDirection: 'row'
     },
+    backContainer:{
+        padding: scale(3)
+    },
     hasBack: {
         flex: 1,
         textAlign: 'center',
@@ -18,6 +21,7 @@ export default StyleSheet.create({
     notHasBack:{
         flex:1,
         textAlign: 'center',
+        paddingRight: scale(30)
     },
     back: {
         padding: scale(7),

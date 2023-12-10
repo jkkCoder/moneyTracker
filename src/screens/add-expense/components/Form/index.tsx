@@ -32,6 +32,7 @@ const Form = ({expenseType, TransactionData, setTransactionData} : Props) => {
           onPressOut={() => setOpen(true)}
           style={styles.input}
           placeholder="Enter category"
+          showSoftInputOnFocus={false}
           value={TransactionData?.date}
         />
         <DatePicker
