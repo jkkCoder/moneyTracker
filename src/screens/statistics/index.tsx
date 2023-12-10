@@ -72,7 +72,7 @@ const Statistics = () => {
               <View style={styles.pieChartContainer}>
                 <PieChart
                   data={categoryWiseData}
-                  width={300}
+                  width={350}
                   height={200}
                   chartConfig={{
                     backgroundColor: '#ffffff',

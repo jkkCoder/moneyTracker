@@ -157,16 +157,16 @@ export const pieColors = [
     '#4BC0C0',
     '#9966FF',
     '#FF9F40',
-    '#FF6384',
-    '#36A2EB',
-    '#FFCE56',
-    '#4BC0C0',
-    '#9966FF',
-    '#FF9F40',
-    '#FF6384',
-    '#36A2EB',
-    '#FFCE56',
-    '#4BC0C0'
+    '#FFD700',
+    '#8A2BE2',
+    '#00FF00',
+    '#FF4500',
+    '#FF6347',
+    '#4682B4',
+    '#00CED1',
+    '#7B68EE',
+    '#20B2AA', 
+    '#FF69B4'  
   ];
 
 export const randomColor = () => ('#' + ((Math.random() * 0xffffff) << 0).toString(16) + '000000').slice(0, 7)
